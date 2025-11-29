@@ -1,13 +1,12 @@
 from clients.http.client import HTTPClient
 from httpx import Response
-from typing import TypedDict
 
 
 class DocumentsGatewayHTTPClient(HTTPClient):
     """
     Клиент для взаимодействия с /api/v1/documents сервиса http-gateway.
     """
-    def get_tariff_document_api(self, account_id: str):
+    def get_tariff_document_api(self, account_id: str) -> Response:
         """
         Получить тарифа по счету.
 
@@ -16,7 +15,7 @@ class DocumentsGatewayHTTPClient(HTTPClient):
         """
         return self.get(f"/api/v1/documents/tariff-document/{account_id}")
 
-    def get_contract_document_api(self, account_id: str):
+    def get_contract_document_api(self, account_id: str) -> Response:
         """
         Получить контракта по счету.
 
