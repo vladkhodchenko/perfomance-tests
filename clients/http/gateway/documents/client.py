@@ -1,6 +1,27 @@
+from typing import TypedDict
+
 from clients.http.client import HTTPClient
 from httpx import Response
 from clients.http.gateway.client import build_gateway_http_client
+
+
+class DocumentDict(TypedDict):
+    url: str
+    document: str
+
+
+class GetTariffDocumentResponseDict(TypedDict):
+    """
+    Описание структуры ответа получения тарифа по счету.
+    """
+    tariff: DocumentDict
+
+
+class GetContractDocumentResponseDict(TypedDict):
+    """
+    Описание структуры ответа получения контракта по счету.
+    """
+    contract: DocumentDict
 
 
 class DocumentsGatewayHTTPClient(HTTPClient):
@@ -25,8 +46,16 @@ class DocumentsGatewayHTTPClient(HTTPClient):
         """
         return self.get(f"/api/v1/documents/contract-document/{account_id}")
 
+    def get_tariff_document(self, account_id: str) -> GetTariffDocumentResponseDict:
+        response = self.get_tariff_document_api(account_id)
+        return response.json()
 
-def build_accounts_gateway_http_client() -> DocumentsGatewayHTTPClient:
+    def get_contract_document(self, account_id: str) -> GetContractDocumentResponseDict:
+        response = self.get_contract_document_api(account_id)
+        return response.json()
+
+
+def build_documents_gateway_http_client() -> DocumentsGatewayHTTPClient:
     """
     Функция создаёт экземпляр DocumentsGatewayHTTPClient с уже настроенным HTTP-клиентом.
 
