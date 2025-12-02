@@ -147,7 +147,7 @@ class OperationsGatewayHTTPClient(HTTPClient):
         return GetOperationsSummaryResponseSchema.model_validate_json(response.text)
 
     def make_fee_operation(self, card_id: str, account_id: str) -> MakeFeeOperationResponseSchema:
-        request = MakeFeeOperationRequestSchema(cardId=card_id, accountId=account_id)
+        request = MakeFeeOperationRequestSchema(card_id=card_id, account_id=account_id)
         response = self.make_fee_operation_api(request)
         return MakeFeeOperationResponseSchema.model_validate_json(response.text)
 
@@ -155,8 +155,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakeTopUpOperationRequestSchema(
             status="COMPLETED",
             amount = 55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_top_up_operation_api(request)
         return MakeTopUpOperationResponseSchema.model_validate_json(response.text)
@@ -165,8 +165,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakeCashbackOperationRequestSchema(
             status="COMPLETED",
             amount=55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_cashback_operation_api(request)
         return MakeCashbackOperationResponseSchema.model_validate_json(response.text)
@@ -175,8 +175,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakeTransferOperationRequestSchema(
             status="COMPLETED",
             amount=55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_transfer_operation_api(request)
         return MakeTransferOperationResponseSchema.model_validate_json(response.text)
@@ -185,8 +185,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakePurchaseOperationRequestSchema(
             status="COMPLETED",
             amount=55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_purchase_operation_api(request)
         return MakePurchaseOperationResponseSchema.model_validate_json(response.text)
@@ -195,8 +195,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakeBillPaymentOperationRequestSchema(
             status="COMPLETED",
             amount=55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_bill_payment_operation_api(request)
         return MakeBillPaymentOperationResponseSchema.model_validate_json(response.text)
@@ -205,8 +205,8 @@ class OperationsGatewayHTTPClient(HTTPClient):
         request = MakeCashWithdrawalOperationRequestSchema(
             status="COMPLETED",
             amount=55.77,
-            cardId=card_id,
-            accountId=account_id
+            card_id=card_id,
+            account_id=account_id
         )
         response = self.make_cash_withdrawal_operation_api(request)
         return MakeCashWithdrawalOperationResponseSchema.model_validate_json(response.text)
