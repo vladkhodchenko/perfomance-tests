@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict
-from enum import StrEnum\
+from enum import StrEnum
 from datetime import date
 from tools.fakers import fake
 
