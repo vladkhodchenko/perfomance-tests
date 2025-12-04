@@ -26,13 +26,13 @@ create_user_request = CreateUserRequest(
 create_user_response: CreateUserResponse = users_gateway_service.CreateUser(create_user_request)
 
 open_savings_account_request = OpenSavingsAccountRequest(user_id=create_user_response.user.id)
-open_savings_account_response = accounts_gateway_service.OpenSavingsAccount(open_savings_account_request)
+open_savings_account_response: OpenSavingsAccountResponse = accounts_gateway_service.OpenSavingsAccount(open_savings_account_request)
 
 get_tariff_document_request = GetTariffDocumentRequest(account_id=open_savings_account_response.account.id)
-get_tariff_document_response = documents_gateway_client.GetTariffDocument(get_tariff_document_request)
+get_tariff_document_response: GetTariffDocumentResponse = documents_gateway_client.GetTariffDocument(get_tariff_document_request)
 
 get_contract_document_request = GetContractDocumentRequest(account_id=open_savings_account_response.account.id)
-get_contract_document_response = documents_gateway_client.GetContractDocument(get_contract_document_request)
+get_contract_document_response: GetContractDocumentResponse = documents_gateway_client.GetContractDocument(get_contract_document_request)
 
 
 print("Create user response:", create_user_response)
