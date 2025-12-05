@@ -64,7 +64,7 @@ class AccountsGatewayHTTPClient(HTTPClient):
         """
         return self.post("/api/v1/accounts/open-credit-card-account", json=request.model_dump(by_alias=True))
 
-    def get_account(self, user_id) -> GetAccountsResponseSchema:
+    def get_account(self, user_id: str) -> GetAccountsResponseSchema:
         query = GetAccountsQuerySchema(user_id=user_id)
         response = self.get_accounts_api(query)
         return GetAccountsResponseSchema.model_validate_json(response.text)
