@@ -1,5 +1,6 @@
 from clients.http.client import HTTPClient, HTTPClientExtensions
 from httpx import Response
+from locust.env import Environment
 from clients.http.gateway.client import (
     build_gateway_http_client,
     build_gateway_locust_http_client
