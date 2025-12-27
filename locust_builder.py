@@ -17,3 +17,7 @@ result = builder.build(
 
 save_seeds_result(result=result, scenario="test-scenario")
 print(load_seeds_result(scenario="test-scenario"))
+
+seeds_scenario = ExistingUserMakePurchaseOperation()
+seeds_scenario.build()
+seeds_scenario.load()
