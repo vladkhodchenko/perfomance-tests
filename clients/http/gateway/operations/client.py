@@ -41,9 +41,9 @@ class OperationsGatewayHTTPClient(HTTPClient):
         :return: Объект httpx.Response с данными об операциях.
         """
         return self.get(
-            "/api/v1/operations/make-top-up-operation",
+            "/api/v1/operations",
             params=QueryParams(**query.model_dump(by_alias=True)),
-            extensions=HTTPClientExtensions(route="/api/v1/operations/make-top-up-operation")
+            extensions=HTTPClientExtensions(route="/api/v1/operations")
         )
 
     def get_operations_summary_api(self, query: GetOperationsSummaryQuerySchema) -> Response:

@@ -27,6 +27,7 @@ class MakePurchaseOperationTaskSet(GatewayHTTPTaskSet):
         # Получаем случайного пользователя из подготовленного списка
         self.seed_user = self.user.environment.seeds.get_random_user()
 
+
     @task(1)
     def make_purchase_operation(self):
         # Совершаем покупку по первой карте пользователя
