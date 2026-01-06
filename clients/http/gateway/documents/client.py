@@ -10,6 +10,8 @@ from clients.http.gateway.documents.schema import (
     GetContractDocumentResponseSchema
 )
 
+
+
 class DocumentsGatewayHTTPClient(HTTPClient):
     """
     Клиент для взаимодействия с /api/v1/documents сервиса http-gateway.
