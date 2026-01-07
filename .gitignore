@@ -3,14 +3,14 @@
 
 # python
 venv
+.venv
 __pycache__
 
-# allure
-allure-results
-allure-report
+# locust
+dumps
+locust_*.csv
+locust_*.json
+report.html
 
-#coverage
-coverage.html
-coverage-results
-coverage-report.json
-coverage-history.json
+# Mac OS
+.DS_Store
