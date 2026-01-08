@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: locust-report-${{ github.run_id }}
-          path: ./reports/${{ github.run_id }}/index.html
+          path: ./reports/${{ github.run_id }}
 
       - name: Stop test services
         if: always()
@@ -86,7 +86,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: locust-report-${{ github.run_id }}
-          path: ./reports/${{ github.run_id }}/index.html
+          path: ./reports/${{ github.run_id }}
 
       - name: Deploy HTML report to GitHub Pages
         if: always()
