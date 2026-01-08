@@ -7,24 +7,24 @@ on:
         type: 'choice'
         default: './scenarios/grpc/gateway/new_user_get_accounts/v1.0.conf'
         options:
-            # grpc-сценарии
-            - ./scenarios/grpc/gateway/existing_user_get_documents/v1.0.conf
-            - ./scenarios/grpc/gateway/existing_user_get_operations/v1.0.conf
-            - ./scenarios/grpc/gateway/existing_user_issue_virtual_card/v1.0.conf
-            - ./scenarios/grpc/gateway/existing_user_make_purchase_operation/v1.0.conf
-            - ./scenarios/grpc/gateway/new_user_get_accounts/v1.0.conf
-            - ./scenarios/grpc/gateway/new_user_get_documents/v1.0.conf
-            - ./scenarios/grpc/gateway/new_user_issue_physical_card/v1.0.conf
-            - ./scenarios/grpc/gateway/new_user_make_top_up_operation/v1.0.conf
-            # http-сценарии
-            - ./scenarios/http/gateway/existing_user_get_documents/v1.0.conf
-            - ./scenarios/http/gateway/existing_user_get_operations/v1.0.conf
-            - ./scenarios/http/gateway/existing_user_issue_virtual_card/v1.0.conf
-            - ./scenarios/http/gateway/existing_user_make_purchase_operation/v1.0.conf
-            - ./scenarios/http/gateway/new_user_get_accounts/v1.0.conf
-            - ./scenarios/http/gateway/new_user_get_documents/v1.0.conf
-            - ./scenarios/http/gateway/new_user_issue_physical_card/v1.0.conf
-            - ./scenarios/http/gateway/new_user_make_top_up_operation/v1.0.conf
+          # grpc-сценарии
+          - ./scenarios/grpc/gateway/existing_user_get_documents/v1.0.conf
+          - ./scenarios/grpc/gateway/existing_user_get_operations/v1.0.conf
+          - ./scenarios/grpc/gateway/existing_user_issue_virtual_card/v1.0.conf
+          - ./scenarios/grpc/gateway/existing_user_make_purchase_operation/v1.0.conf
+          - ./scenarios/grpc/gateway/new_user_get_accounts/v1.0.conf
+          - ./scenarios/grpc/gateway/new_user_get_documents/v1.0.conf
+          - ./scenarios/grpc/gateway/new_user_issue_physical_card/v1.0.conf
+          - ./scenarios/grpc/gateway/new_user_make_top_up_operation/v1.0.conf
+          # http-сценарии
+          - ./scenarios/http/gateway/existing_user_get_documents/v1.0.conf
+          - ./scenarios/http/gateway/existing_user_get_operations/v1.0.conf
+          - ./scenarios/http/gateway/existing_user_issue_virtual_card/v1.0.conf
+          - ./scenarios/http/gateway/existing_user_make_purchase_operation/v1.0.conf
+          - ./scenarios/http/gateway/new_user_get_accounts/v1.0.conf
+          - ./scenarios/http/gateway/new_user_get_documents/v1.0.conf
+          - ./scenarios/http/gateway/new_user_issue_physical_card/v1.0.conf
+          - ./scenarios/http/gateway/new_user_make_top_up_operation/v1.0.conf
         required: true
         description: 'Locust config file'
 
@@ -64,6 +64,30 @@ jobs:
       - name: Run load tests and generate HTML report
         run: locust --config=${{ github.event.inputs.SCENARIO }} --html=./reports/${{ github.run_id }}/index.html
 
+      - name: Upload Locust results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: locust-report-${{ github.run_id }}
+          path: ./reports/${{ github.run_id }}/index.html
+
+      - name: Stop test services
+        if: always()
+        run: docker compose -f docker-compose.ci.yaml down -v
+        working-directory: performance-qa-engineer-course
+
+  publish-report:
+    if: always()
+    needs: [ run-tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download locust results
+        uses: actions/download-artifact@v5
+        with:
+          name: locust-report-${{ github.run_id }}
+          path: ./reports/${{ github.run_id }}/index.html
+
       - name: Deploy HTML report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -73,9 +97,5 @@ jobs:
           publish_dir: reports
           publish_branch: gh-pages
 
-      - name: Stop test services
-        if: always()
-        run: docker compose -f docker-compose.ci.yaml down -v
-        working-directory: performance-qa-engineer-course
 
 
